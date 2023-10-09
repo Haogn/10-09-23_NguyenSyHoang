@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BookManagement {
-    public static Scanner sc = new Scanner(System.in) ;
+    public static Scanner sc = new Scanner(System.in);
     public static List<Book> listBook = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -18,7 +18,7 @@ public class BookManagement {
 //        Book book2 = new Book(2 , "Chi pheo", "ccc" , 100, 60F, 120F, true);
 //        listBook.add(book1);
 //        listBook.add(book2);
-        int choice ;
+        int choice;
         do {
             System.out.println("_______________JAVA-HACKATHON-05-BASIC-MENU________________");
             System.out.println("1. Nhập số sách và nhập thông tin sách ");
@@ -29,28 +29,28 @@ public class BookManagement {
             System.out.println("6. Thay đổi trạng thái của sách theo mã sách");
             System.out.println("7. Thoát");
             System.out.println("Lua chon the thua hien quan ly MENU Book ");
-            choice = Integer.parseInt(sc.nextLine()) ;
+            choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
-                case 1 :
+                case 1:
                     bookManagement.createBook();
                     break;
-                case 2 :
+                case 2:
                     bookManagement.printBook();
                     break;
-                case 3 :
+                case 3:
                     bookManagement.sortByPrice();
                     break;
-                case 4 :
+                case 4:
                     bookManagement.deleteById();
                     break;
-                case 5 :
+                case 5:
                     bookManagement.findByName();
                     break;
-                case 6 :
+                case 6:
                     bookManagement.changeStatus();
                     break;
-                case 7 :
+                case 7:
                     System.err.println(" ❌❌❌ Thoat chuong trinh ");
                     sc.close();
                     break;
@@ -58,28 +58,28 @@ public class BookManagement {
                     System.err.println("Lua chon khong phu hop . Vui long nhap lai ❤");
             }
 
-        } while (choice!= 7) ;
+        } while (choice != 7);
     }
 
     public void createBook() {
         System.out.println("Nhap vao so luong sach muon them vao danh sach ");
-        int n = Integer.parseInt(sc.nextLine()) ;
+        int n = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < n; i++) {
             Book newBook = new Book();
             newBook.inputData();
-            listBook.add(newBook) ;
+            listBook.add(newBook);
         }
     }
 
     public void printBook() {
-        for ( Book book: listBook) {
-            if (listBook.isEmpty()) {
-                System.out.println("Danh sach dang rong , Hay nhap vao sach them vao danh sach");
-                Book newBook = new Book();
-                newBook.inputData();
-                listBook.add(newBook) ;
-                listBook.get(0).displayData();
-            } else {
+        if (listBook.isEmpty()) {
+            System.out.println("Danh sach dang rong , Hay nhap vao sach them vao danh sach");
+            Book newBook = new Book();
+            newBook.inputData();
+            listBook.add(newBook);
+            listBook.get(0).displayData();
+        } else {
+            for (Book book : listBook) {
                 book.displayData();
             }
         }
@@ -93,16 +93,16 @@ public class BookManagement {
             }
         });
         System.out.println("Sap xep theo loi nhuan giam dan ");
-       for (Book book : listBook) {
-           book.displayData();
-       }
+        for (Book book : listBook) {
+            book.displayData();
+        }
     }
 
     public void deleteById() {
         System.out.println("Nhap vao Id sach can xoa");
-        int id = Integer.parseInt(sc.nextLine()) ;
-        Book newBook = findById(id) ;
-        if ( newBook != null) {
+        int id = Integer.parseInt(sc.nextLine());
+        Book newBook = findById(id);
+        if (newBook != null) {
             listBook.remove(newBook);
             System.out.println("Da xoa sach khoi danh sach");
         } else {
@@ -112,9 +112,9 @@ public class BookManagement {
 
     public void findByName() {
         System.out.println("Nhap vao ten sach can tim kiem ");
-        String search = sc.nextLine() ;
+        String search = sc.nextLine();
         for (Book book : listBook) {
-            if ( book.getBookName().equalsIgnoreCase(search)) {
+            if (book.getBookName().equalsIgnoreCase(search)) {
                 System.out.println("Tim thay sach trong danh sach");
                 book.displayData();
                 break;
@@ -127,33 +127,33 @@ public class BookManagement {
 
     public void changeStatus() {
         System.out.println("Nhap vao Id sach can thay doi trang thai ban hang");
-        int id = Integer.parseInt(sc.nextLine()) ;
-        Book newBook = findById(id) ;
-        int index = listBook.indexOf(newBook) ;
+        int id = Integer.parseInt(sc.nextLine());
+        Book newBook = findById(id);
+        int index = listBook.indexOf(newBook);
         if (newBook != null) {
-            System.out.println("Trang thai ban hang hien tai " + (newBook.isBookStatus()?"Co ban":"Khong ban"));
-          while (true) {
-              System.out.println("Thay doi trang thai ban hang ( Co - Khong ) ");
-              String newStatus = sc.nextLine();
-              if (newStatus.equalsIgnoreCase("co")) {
-               newBook.setBookStatus(true);
-               break;
-              } else if (newStatus.equalsIgnoreCase("khong")) {
-                  newBook.setBookStatus(false);
-                  break;
-              } else {
-                  System.err.println("Trang thai ban hang khong phu hop . Vui long nhap lai ❤");
-              }
-          }
+            System.out.println("Trang thai ban hang hien tai " + (newBook.isBookStatus() ? "Co ban" : "Khong ban"));
+            while (true) {
+                System.out.println("Thay doi trang thai ban hang ( Co - Khong ) ");
+                String newStatus = sc.nextLine();
+                if (newStatus.equalsIgnoreCase("co")) {
+                    newBook.setBookStatus(true);
+                    break;
+                } else if (newStatus.equalsIgnoreCase("khong")) {
+                    newBook.setBookStatus(false);
+                    break;
+                } else {
+                    System.err.println("Trang thai ban hang khong phu hop . Vui long nhap lai ❤");
+                }
+            }
         }
     }
 
-    public Book findById(int id ) {
+    public Book findById(int id) {
         for (Book book : listBook) {
-            if (book.getBookId() == id ) {
-                return book ;
+            if (book.getBookId() == id) {
+                return book;
             }
         }
-        return null ;
+        return null;
     }
 }
