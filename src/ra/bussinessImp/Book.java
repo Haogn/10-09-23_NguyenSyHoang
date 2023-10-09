@@ -110,8 +110,20 @@ public class Book implements IBook {
             if (name.trim().isEmpty()) {
                 System.err.println("Ten sach khong the de rong. Vui long nhap lai ❤");
             } else {
-                this.bookName = name ;
-                break;
+                boolean isExist = false ;
+                for (Book book : listBook) {
+                    if (book.getBookName().equals(name)) {
+                        System.err.println("Sach da co trong danh sach. Vui long nhap lai ");
+                    } else {
+                        isExist = true ;
+                        break;
+                    }
+                }
+                if (!isExist) {
+                    this.bookName = name ;
+                    break;
+                }
+
             }
         }
 
