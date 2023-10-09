@@ -128,24 +128,14 @@ public class BookManagement {
     public void changeStatus() {
         System.out.println("Nhap vao Id sach can thay doi trang thai ban hang");
         int id = Integer.parseInt(sc.nextLine());
-        Book newBook = findById(id);
-        int index = listBook.indexOf(newBook);
-        if (newBook != null) {
-            System.out.println("Trang thai ban hang hien tai " + (newBook.isBookStatus() ? "Co ban" : "Khong ban"));
-            while (true) {
-                System.out.println("Thay doi trang thai ban hang ( Co - Khong ) ");
-                String newStatus = sc.nextLine();
-                if (newStatus.equalsIgnoreCase("co")) {
-                    newBook.setBookStatus(true);
-                    break;
-                } else if (newStatus.equalsIgnoreCase("khong")) {
-                    newBook.setBookStatus(false);
-                    break;
-                } else {
-                    System.err.println("Trang thai ban hang khong phu hop . Vui long nhap lai ❤");
-                }
+        for (Book book : listBook) {
+            if (book.getBookId() == id) {
+                book.setBookStatus(!book.isBookStatus());
+                System.out.println("Trạng thái của mã sách đã đổi thành " + book.isBookStatus());
+
             }
         }
+
     }
 
     public Book findById(int id) {
